@@ -1,0 +1,7 @@
+.mapItem {
+  position: relative;
+
+  &:hover {
+    z-index: 200;
+  }
+}
