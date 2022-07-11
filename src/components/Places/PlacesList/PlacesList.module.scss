@@ -1,4 +1,16 @@
 .placesList {
-  max-height: 699px;
+  height: calc(100vh - 250px);
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: #CECECE;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #343a40;
+  }
 }

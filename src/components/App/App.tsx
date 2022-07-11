@@ -14,11 +14,11 @@ function App() {
                 <section className="main-section d-flex flex-column flex-fill">
                     <Container fluid className="py-4 d-flex flex-column flex-fill">
                         <Row className="flex-fill">
-                            <Col lg={5} xl={4}>
+                            <Col md={5} xl={4} className="d-flex flex-column minh-345 mb-3 mb-md-0">
                                 <FilterForm/>
                                 <PlacesList/>
                             </Col>
-                            <Col lg={7} xl={8}>
+                            <Col md={7} xl={8} className="d-flex flex-column minh-345">
                                 <Map/>
                             </Col>
                         </Row>

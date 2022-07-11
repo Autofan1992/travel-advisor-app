@@ -2,36 +2,64 @@ import { usePlacesContext } from '../../../context/places-context'
 import { Spinner, Stack } from 'react-bootstrap'
 import { PlaceItem } from '../PlaceItem/PlaceItem'
 import classes from './PlacesList.module.scss'
-import { createRef, RefObject, useEffect } from 'react'
+import React, { createRef, memo, RefObject, useEffect } from 'react'
 
 type refType = {
-    [key: number]: RefObject<HTMLDivElement>
+    [key: string]: RefObject<HTMLDivElement>
 }
 
-export const PlacesList = () => {
-    const { places, clickedChildKey } = usePlacesContext()
+export const PlacesList = memo(() => {
+    const {
+        visiblePlaces,
+        clickedChildKey,
+        isFetching,
+        placeType,
+        setVisiblePlacesCount,
+        setClickedChildKey
+    } = usePlacesContext()
+
+    const refs = visiblePlaces?.reduce((acc, value) => {
+        acc[value.id] = createRef()
+        return acc
+    }, {} as refType)
 
     useEffect(() => {
-        if (clickedChildKey !== null) {
+        if (clickedChildKey !== null && refs) {
             refs[clickedChildKey].current?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
             })
+            setClickedChildKey(null)
         }
-    }, [clickedChildKey])
+    }, [clickedChildKey, refs])
 
-    if (!places) return <Spinner animation="grow"/>
+    const handleScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
+        if (e.currentTarget.scrollTop <= (e.currentTarget.scrollHeight - e.currentTarget.clientHeight) - 30) return
 
-    const refs = places.reduce((acc, value, idx) => {
-        acc[idx] = createRef()
-        return acc
-    }, {} as refType)
+        setVisiblePlacesCount(prevState => {
+            console.log(prevState)
+            return prevState + 10
+        })
+    }
+
+    if (isFetching) return (
+        <div className="flex-grow-1 d-flex align-items-center justify-content-center">
+            <Spinner animation="border"/>
+        </div>
+    )
+
+    if (!visiblePlaces || !visiblePlaces.length) return (
+        <div className="flex-grow-1 d-flex align-items-center justify-content-center fw-bold">
+            <span>There are no {placeType} in selected area.</span>
+        </div>
+    )
 
     return (
-        <Stack gap={3} className={classes.placesList}>
-            {places.map((place, idx) => {
-                if (place.name) return <PlaceItem ref={refs[idx]} key={idx} {...place}/>
-            })}
+        <Stack gap={3} className={`${classes.placesList} pe-3`} onScroll={handleScroll}>
+            {refs &&
+                visiblePlaces.map((place) => {
+                    return <PlaceItem ref={refs[place.id]} key={place.id} {...place}/>
+                })}
         </Stack>
     )
-}
+})

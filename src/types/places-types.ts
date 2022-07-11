@@ -1,10 +1,13 @@
-export type PlaceType = {
+export type PlaceItemType = {
     is_closed: boolean | undefined
     location_string: string | undefined
     latitude: string
     longitude: string
-    name: string | undefined
+    name: string
     num_reviews: string | undefined
+    website: string | undefined
+    phone: string | undefined
+    id: string
     photo: {
         images: {
             small: {
@@ -32,4 +35,17 @@ export type PlaceType = {
             name: string
         }
     ] | undefined
+}
+
+export enum PlaceTypeEnum {
+    Restaurants = 'restaurants',
+    Hotels = 'hotels',
+    Attractions = 'attractions',
+}
+
+export enum PlaceRatingEnum {
+    All = 0,
+    AboveThree = 3,
+    AboveFour = 4,
+    AboveFourPointFive = 4.5,
 }

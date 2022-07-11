@@ -1,1 +1,9 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+.minh-345 {
+    min-height: 345px;
+}
+
+p {
+    margin: 0;
+}

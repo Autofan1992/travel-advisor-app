@@ -1,7 +1,34 @@
 .mapItem {
+  width: 150px;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 3px;
+  inset: 0;
   position: relative;
+  transform: translate(-50%, -50%);
+
+  img {
+    object-fit: cover;
+    max-width: 100%;
+  }
+
+  .itemImg {
+    position: relative;
+  }
+
+  .ratingBlock {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    backdrop-filter: blur(10px);
+    line-height: 1;
+    padding: 0.2rem;
+    border-radius: 5px;
+  }
 
   &:hover {
-    z-index: 200;
+    + div {
+      opacity: 0;
+    }
   }
 }
