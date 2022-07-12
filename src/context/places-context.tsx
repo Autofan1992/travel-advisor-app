@@ -21,6 +21,7 @@ type MapContextType = {
     setPlaceMinRating: (rating: PlaceRatingEnum) => void
     setVisiblePlacesCount: Dispatch<SetStateAction<number>>
     visiblePlacesCount: number
+    placesCount: number
 }
 
 const PlacesContext = createContext({} as MapContextType)
@@ -39,6 +40,7 @@ export const MapProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [coordinates, setCoordinates] = useState<CoordinatesType | null>(null)
     const [bounds, setBounds] = useState<BoundsType | null>(null)
     const [clickedChildKey, setClickedChildKey] = useState<number | null>(null)
+    const placesCount = places.length
 
     const debouncedBounds = useDebounce<BoundsType | null>(bounds, 500)
 
@@ -72,7 +74,7 @@ export const MapProvider: FC<{ children: ReactNode }> = ({ children }) => {
         if (places) {
             return places.filter((place, idx) => {
                 const filterByRating = place.rating && +place.rating > placeMinRating
-                const filterByCount = idx <= visiblePlacesCount
+                const filterByCount = idx < visiblePlacesCount
 
                 return filterByRating && filterByCount
             })
@@ -96,7 +98,8 @@ export const MapProvider: FC<{ children: ReactNode }> = ({ children }) => {
             placeType,
             setPlaceType,
             setVisiblePlacesCount,
-            visiblePlacesCount
+            visiblePlacesCount,
+            placesCount
         }}>
             {children}
         </PlacesContext.Provider>

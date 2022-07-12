@@ -15,7 +15,9 @@ export const PlacesList = memo(() => {
         isFetching,
         placeType,
         setVisiblePlacesCount,
-        setClickedChildKey
+        setClickedChildKey,
+        placesCount,
+        visiblePlacesCount
     } = usePlacesContext()
 
     const refs = visiblePlaces?.reduce((acc, value) => {
@@ -55,11 +57,20 @@ export const PlacesList = memo(() => {
     )
 
     return (
-        <Stack gap={3} className={`${classes.placesList} pe-3`} onScroll={handleScroll}>
-            {refs &&
-                visiblePlaces.map((place) => {
-                    return <PlaceItem ref={refs[place.id]} key={place.id} {...place}/>
-                })}
-        </Stack>
+        <>
+            <h6>
+                {visiblePlacesCount < placesCount &&
+                    (
+                        `${visiblePlacesCount} of ${placesCount} places is shown. Scroll down to see more`
+                    )
+                }
+            </h6>
+            <Stack gap={3} className={`${classes.placesList} pe-3`} onScroll={handleScroll}>
+                {refs &&
+                    visiblePlaces.map((place) => {
+                        return <PlaceItem ref={refs[place.id]} key={place.id} {...place}/>
+                    })}
+            </Stack>
+        </>
     )
 })
