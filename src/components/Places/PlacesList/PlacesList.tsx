@@ -61,7 +61,7 @@ export const PlacesList = memo(() => {
             <h6>
                 {visiblePlacesCount < placesCount &&
                     (
-                        `${visiblePlacesCount} of ${placesCount} places is shown. Scroll down to see more`
+                        `${visiblePlacesCount} of ${placesCount} places are shown. Scroll down to see more`
                     )
                 }
             </h6>
