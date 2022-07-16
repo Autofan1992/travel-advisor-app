@@ -2,7 +2,7 @@ import GoogleMapReact from 'google-map-react'
 import { usePlacesContext } from '../../context/places-context'
 import { MapItem } from './MapItem/MapItem'
 import { memo } from 'react'
-import mapStyles from './mapStyles'
+import { mapStyles } from './mapStyles'
 
 export const Map = memo(() => {
     const { coordinates, setClickedChildKey, setBounds, visiblePlaces } = usePlacesContext()

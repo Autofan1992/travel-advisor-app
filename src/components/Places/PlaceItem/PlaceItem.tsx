@@ -178,7 +178,8 @@ export const PlaceItem = memo(forwardRef<HTMLDivElement, PlaceItemType & PropsTy
                                         <g>
                                         </g>
                                     </svg>
-                                    <a href={website} target="_blank" className="text-muted ms-2">Visit website</a>
+                                    <a href={website} target="_blank" rel="noreferrer" className="text-muted ms-2">Visit
+                                        website</a>
                                 </Col>
                             )}
                         </Row>

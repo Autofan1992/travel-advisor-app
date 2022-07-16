@@ -33,7 +33,7 @@ export const PlacesList = memo(() => {
             })
             setClickedChildKey(null)
         }
-    }, [clickedChildKey, refs])
+    }, [clickedChildKey, refs, setClickedChildKey])
 
     const handleScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
         if (e.currentTarget.scrollTop <= (e.currentTarget.scrollHeight - e.currentTarget.clientHeight) - 30) return
